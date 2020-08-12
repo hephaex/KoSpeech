@@ -1,19 +1,22 @@
-[<img src="http://img.shields.io/badge/documentation-Built with Sphinx provided by Read the Docs-9cf?logo=Read%20the%20Docs&logoColor=white">](https://sooftware.github.io/KoSpeech/) [<img src="http://img.shields.io/badge/chat%20on-gitter-9cf?logo=Gitter&logoColor=white">](https://gitter.im/Korean-Speech-Recognition/community)  
-[<img src="http://img.shields.io/badge/demo%20web%20application-Built%20with%20Flask-9cf?logo=Google%20Chrome&logoColor=white">](http://www.kospeech.com/) [<img src="http://img.shields.io/badge/issue-welcome-9cf?logo=Github&logoColor=white">](https://github.com/sooftware/KoSpeech/issues)   
-[<img src="http://img.shields.io/badge/PyTorch-1.3.0%20or%20above%20Recommended-9cf?logo=Pytorch&logoColor=white">](https://pytorch.org/)  [<img src="http://img.shields.io/badge/NVIDIA%20CUDA-9.2%20or%20above%20Recommended-9cf?logo=Nvidia&logoColor=white">](https://developer.nvidia.com/cuda-downloads)   
-<img src="http://img.shields.io/badge/Run transformer-fail-ff"> [<img src="http://img.shields.io/badge/help wanted-issue 37-ff">](https://github.com/sooftware/KoSpeech/issues/37) [![CodeFactor](https://www.codefactor.io/repository/github/sooftware/kospeech/badge)](https://www.codefactor.io/repository/github/sooftware/kospeech)     
+<img src="https://user-images.githubusercontent.com/42150335/89766602-63a82380-db33-11ea-8f5f-916ea90e1ed1.png" width=750>
   
-# KoSpeech: Open Source Project for Korean End-to-End Automatic Speech Recognition in PyTorch
-  
-[KoSpeech: Open Source Project for Korean End-to-End Automatic Speech Recognition in PyTorch](https://sooftware.github.io/KoSpeech/)     
+# KoSpeech: Korean Speech Recognition Toolkit
+
+[![CodeFactor](https://www.codefactor.io/repository/github/sooftware/kospeech/badge)](https://www.codefactor.io/repository/github/sooftware/kospeech) [<img src="http://img.shields.io/badge/docs-passing-success">](https://sooftware.github.io/KoSpeech/) [<img src="http://img.shields.io/badge/help wanted-issue 37-ff">](https://github.com/sooftware/KoSpeech/issues/37) <img src="http://img.shields.io/badge/Run Seq2seq-success-success"> <img src="http://img.shields.io/badge/Run transformer-fail-red"> 
+
+[KoSpeech: Korean Speech Recognition Toolkit](https://sooftware.github.io/KoSpeech/)     
   
 [Soohwan Kim](https://github.com/sooftware)<sup>1,2</sup>, [Seyoung Bae](https://github.com/triplet02)<sup>1</sup>, [Cheolhwang Won](https://github.com/wch18735)<sup>1</sup>, [Suwon Park](https://ei.kw.ac.kr/introduction/professor_view.php?idx=72)<sup>1*</sup>
   
 <sup>1</sup>Elcomm, Kwangwoon Univ. <sup>2</sup>Spoken Language Lab (of Sogang Univ.) <sup>*</sup> author is advisor to this work  
   
 `KoSpeech` is an End-to-End open source project for Korean speech recognition. The goal of this work is to help research speech recognition. It was developed with a focus on readability and extensibility of code. Learning is possible through various options such as feature extraction, attention mechanism, and data augmentation, etc..   
-We used `KsponSpeech` corpus which containing **1000h** of Korean speech data. At present our model has recorded an **89.69%** character recognition rate. We are always updating this work for increased recognition rate and extensibility.   
+We used `KsponSpeech` corpus which containing **1000h** of Korean speech data. At present our model has recorded an **10.31%** character error rate. We are always updating this work for increased recognition rate and extensibility.   
 We appreciate any kind of [feedback or contribution](https://github.com/sooftware/End-to-end-Speech-Recognition/issues).    
+  
+|Description|Dataset|Model|  
+|-----------|-------|-----|  
+|kospeech_seq2seq|[KsponSpeech](http://www.aihub.or.kr/aidata/105)|[download](https://drive.google.com/file/d/1Sq3ah7UijgxR-PGZfOVEY8aT12Y4JRdB/view?usp=sharing)|   
   
 ## Intro
   

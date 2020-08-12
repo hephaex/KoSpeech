@@ -99,8 +99,10 @@ class SupervisedTrainer(object):
             self.validset = resume_checkpoint.validset
             start_epoch = resume_checkpoint.epoch + 1
             epoch_time_step = 0
+
             for trainset in self.trainset_list:
                 epoch_time_step += len(trainset)
+
             epoch_time_step = math.ceil(epoch_time_step / batch_size)
 
         logger.info('start')
@@ -109,6 +111,7 @@ class SupervisedTrainer(object):
         for epoch in range(start_epoch, num_epochs):
             logger.info('Epoch %d start' % epoch)
             train_queue = queue.Queue(self.num_workers << 1)
+
             for trainset in self.trainset_list:
                 trainset.shuffle()
 
@@ -121,7 +124,7 @@ class SupervisedTrainer(object):
             elif epoch == 2:
                 self.optimizer.set_lr(5e-05)
             elif epoch == 3:
-                self.optimizer.set_scheduler(ReduceLROnPlateau(self.optimizer, patience=1, factor=0.5), 999999)
+                self.optimizer.set_scheduler(ReduceLROnPlateau(self.optimizer.optimizer, patience=1, factor=0.5), 999999)
 
             train_loss, train_cer = self.__train_epoches(model, epoch, epoch_time_step, train_begin_time,
                                                          train_queue, teacher_forcing_ratio)
@@ -146,7 +149,7 @@ class SupervisedTrainer(object):
 
             logger.info('Epoch %d (Validate) Loss %0.4f CER %0.4f' % (epoch, valid_loss, valid_cer))
             self.__save_epoch_result(train_result=[self.train_dict, train_loss, train_cer],
-                                    valid_result=[self.valid_dict, valid_loss, valid_cer])
+                                     valid_result=[self.valid_dict, valid_loss, valid_cer])
             logger.info('Epoch %d Training result saved as a csv file complete !!' % epoch)
 
         Checkpoint(model, self.optimizer, self.criterion, self.trainset_list, self.validset, num_epochs).save()
@@ -195,7 +198,7 @@ class SupervisedTrainer(object):
 
             inputs = inputs.to(self.device)
             targets = targets.to(self.device)
-            model.to(self.device)
+            model = model.to(self.device)
 
             if self.architecture == 'seq2seq':
                 if isinstance(model, nn.DataParallel):
@@ -285,12 +288,12 @@ class SupervisedTrainer(object):
 
                 inputs = inputs.to(self.device)
                 targets = targets[:, 1:].to(self.device)
+                model.cuda()
 
                 if self.architecture == 'seq2seq':
                     model.module.flatten_parameters()
                     output = model(inputs=inputs, input_lengths=input_lengths,
-                                   teacher_forcing_ratio=0.0,
-                                   language_model=None, return_decode_dict=False)
+                                   teacher_forcing_ratio=0.0, return_decode_dict=False)
                     logit = torch.stack(output, dim=1).to(self.device)
 
                 elif self.architecture == 'transformer':

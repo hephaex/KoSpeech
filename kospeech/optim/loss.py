@@ -2,12 +2,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch import Tensor
-from kospeech.utils import PAD_token
 
 
-class CrossEntrypyLoss(nn.Module):
+class CrossEntropyWithSmoothingLoss(nn.Module):
     """
-    Provides Cross entropy loss & Label smoothing loss.
+    A Cross Entropy with Label Smoothing Loss.
 
     Args:
         num_classes (int): the number of classfication
@@ -23,7 +22,7 @@ class CrossEntrypyLoss(nn.Module):
         - **label_smoothed** (float): sum of loss
     """
     def __init__(self, num_classes: int, ignore_index: int, smoothing: float = 0.1, dim: int = -1):
-        super(CrossEntrypyLoss, self).__init__()
+        super(CrossEntropyWithSmoothingLoss, self).__init__()
         self.confidence = 1.0 - smoothing
         self.smoothing = smoothing
         self.num_classes = num_classes
@@ -37,8 +36,6 @@ class CrossEntrypyLoss(nn.Module):
                 label_smoothed.fill_(self.smoothing / (self.num_classes - 1))
                 label_smoothed.scatter_(1, target.data.unsqueeze(1), self.confidence)
                 label_smoothed[target == self.ignore_index, :] = 0
-                loss = torch.sum(-label_smoothed * logit)
-        else:
-            loss = F.cross_entropy(logit, target, ignore_index=PAD_token, reduction='sum')
+            return torch.sum(-label_smoothed * logit)
 
-        return loss
+        return F.cross_entropy(logit, target, ignore_index=self.ignore_index, reduction='sum')
